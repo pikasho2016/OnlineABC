@@ -1,0 +1,325 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Oleander Supply</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Familjen+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: sticky header with search + cart, slim hero band, filter row, responsive product grid, slide-in cart drawer with in-page checkout. */
+:root {
+  --bg: #f2f5f1;
+  --surface: #ffffff;
+  --fg: #172326;
+  --muted: #5b6b6a;
+  --line: #d8e0da;
+  --accent: #2b45c9;
+  --accent-fg: #ffffff;
+  --good: #1c7a4b;
+  --shape: #1f3a3d;
+  --shape2: #e9efe9;
+  --t1: #dfe9e4;
+  --t2: #e4e6f3;
+  --t3: #ece7df;
+  --t4: #dde8ec;
+  --font-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111718; --surface: #182022; --fg: #e7eeea; --muted: #9aaba8; --line: #2a3638;
+    --accent: #8da2ff; --accent-fg: #0e1530; --good: #5fcf94;
+    --shape: #c9d8d3; --shape2: #26363a;
+    --t1: #1f2d2c; --t2: #212538; --t3: #2b2923; --t4: #1d2b31;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111718; --surface: #182022; --fg: #e7eeea; --muted: #9aaba8; --line: #2a3638;
+  --accent: #8da2ff; --accent-fg: #0e1530; --good: #5fcf94;
+  --shape: #c9d8d3; --shape2: #26363a;
+  --t1: #1f2d2c; --t2: #212538; --t3: #2b2923; --t4: #1d2b31;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding-inline: max(16px, env(safe-area-inset-left, 0px));
+}
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; margin-right: auto; }
+.brand span { color: var(--accent); }
+.search { flex: 1 1 220px; max-width: 360px; min-width: 0; }
+.search input { width: 100%; padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.cartbtn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--fg); background: transparent; border-radius: 999px; padding: 8px 16px; font-weight: 500; }
+.cartbtn b { background: var(--accent); color: var(--accent-fg); border-radius: 999px; min-width: 22px; height: 22px; display: inline-grid; place-items: center; font-size: 12px; padding-inline: 6px; }
+
+.hero { padding-block: 40px 28px; display: grid; gap: 10px; }
+.hero h1 { font-size: clamp(30px, 5.4vw, 54px); line-height: 1.04; max-width: 15ch; }
+.hero p { color: var(--muted); max-width: 52ch; margin: 0; }
+.ship { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--muted); margin-top: 6px; }
+.ship b { color: var(--good); font-weight: 500; }
+
+.tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-block: 12px 20px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-right: auto; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.sort { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 10px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 18px; }
+.card { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tile { position: relative; aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center; overflow: hidden; }
+.tile svg { width: 62%; height: 62%; }
+.tile .tag { position: absolute; top: 10px; left: 10px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--surface); padding: 3px 8px; border-radius: 4px; }
+.meta { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.meta h3 { font-size: 16px; font-weight: 600; }
+.price { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }
+.sub { color: var(--muted); font-size: 13px; margin-top: -6px; }
+.add { margin-top: auto; border: 1px solid var(--fg); background: transparent; border-radius: 6px; padding: 9px 12px; font-weight: 500; transition: background .15s, color .15s; }
+.add:hover { background: var(--fg); color: var(--bg); }
+.empty { grid-column: 1 / -1; padding: 48px 0; text-align: center; color: var(--muted); }
+
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+.scrim { position: fixed; inset: 0; background: rgba(8, 14, 15, .5); z-index: 40; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(430px, 100%); z-index: 50; background: var(--surface);
+  border-left: 1px solid var(--line); display: flex; flex-direction: column;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) 0;
+}
+.dhead { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.dhead h2 { font-size: 20px; }
+.x { border: 0; background: transparent; font-size: 22px; line-height: 1; padding: 4px 8px; }
+.dbody { flex: 1; overflow-y: auto; padding: 8px 20px 16px; min-height: 0; }
+.free { padding: 14px 20px 0; font-size: 13px; color: var(--muted); }
+.bar { height: 5px; background: var(--line); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--good); transition: width .25s; }
+.line { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--line); align-items: center; }
+.line .mini { width: 56px; height: 56px; border-radius: 5px; display: grid; place-items: center; }
+.line .mini svg { width: 70%; height: 70%; }
+.line h4 { margin: 0; font-size: 14px; font-weight: 500; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 6px; margin-top: 4px; }
+.qty button { border: 0; background: transparent; width: 28px; height: 28px; }
+.qty span { min-width: 22px; text-align: center; font-variant-numeric: tabular-nums; }
+.rm { border: 0; background: transparent; color: var(--muted); font-size: 12px; text-decoration: underline; padding: 0; margin-top: 4px; display: block; margin-left: auto; }
+.dfoot { border-top: 1px solid var(--line); padding: 16px 20px; display: grid; gap: 8px; }
+.row { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+.row.total { font-weight: 700; font-size: 17px; padding-top: 6px; }
+.promo { display: flex; gap: 8px; }
+.promo input, .form input { flex: 1; min-width: 0; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); width: 100%; }
+.promo button { border: 1px solid var(--line); background: transparent; border-radius: 6px; padding: 0 14px; }
+.note { font-size: 12px; color: var(--muted); min-height: 16px; }
+.primary { border: 0; background: var(--accent); color: var(--accent-fg); border-radius: 6px; padding: 12px; font-weight: 700; width: 100%; }
+.link { border: 0; background: transparent; color: var(--muted); text-decoration: underline; font-size: 13px; padding: 0; }
+.form { display: grid; gap: 12px; padding-top: 12px; }
+.form label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.done { text-align: center; padding: 48px 8px; display: grid; gap: 10px; }
+.done h3 { font-size: 24px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; z-index: 60; }
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+  .meta { flex-direction: column; gap: 0; }
+  .search { order: 3; flex-basis: 100%; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Oleander<span>.</span>Supply</div>
+    <div class="search"><input id="q" type="search" placeholder="Search mugs, linen, lamps" aria-label="Search products"></div>
+    <button class="cartbtn" id="openCart" aria-label="Open cart">Cart <b id="count">0</b></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Everyday things for the table, the bed and the shelf.</h1>
+    <p>Small-batch ceramics, stonewashed linen and hand-finished lighting. Made to be used daily and repaired, not replaced.</p>
+    <div class="ship"><span><b>Free shipping</b> on orders over $75</span><span>30-day returns</span><span>Sample store, no payment is taken</span></div>
+  </section>
+
+  <div class="tools">
+    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+    <label class="sr" for="sort" style="position:absolute;left:-9999px">Sort</label>
+    <select class="sort" id="sort">
+      <option value="feat">Featured</option>
+      <option value="lo">Price: low to high</option>
+      <option value="hi">Price: high to low</option>
+      <option value="az">Name A to Z</option>
+    </select>
+  </div>
+
+  <section class="grid" id="grid" aria-live="polite"></section>
+
+  <footer><span>Oleander Supply, sample storefront</span><span>Prices in USD</span></footer>
+</main>
+
+<div id="layer"></div>
+<div id="toastHost"></div>
+
+<script>
+var PRODUCTS = [
+  { id: 1, name: "Hand-thrown mug", sub: "Stoneware, 300 ml", cat: "Ceramics", price: 24, icon: "mug", t: 1, tag: "Bestseller" },
+  { id: 2, name: "Stoneware bowl set", sub: "Set of four, 16 cm", cat: "Ceramics", price: 68, icon: "bowl", t: 2 },
+  { id: 3, name: "Tall bud vase", sub: "Matte glaze, 22 cm", cat: "Ceramics", price: 42, icon: "vase", t: 3 },
+  { id: 4, name: "Linen tea towels", sub: "Pair, 50 x 70 cm", cat: "Linen", price: 28, icon: "towel", t: 4 },
+  { id: 5, name: "Stonewashed duvet cover", sub: "French linen, double", cat: "Linen", price: 142, icon: "duvet", t: 1, tag: "New" },
+  { id: 6, name: "Linen napkins", sub: "Set of four, 40 cm", cat: "Linen", price: 36, icon: "napkins", t: 3 },
+  { id: 7, name: "Olive wood board", sub: "Oiled, 45 cm", cat: "Kitchen", price: 54, icon: "board", t: 2 },
+  { id: 8, name: "Enamel pitcher", sub: "Steel core, 1.2 L", cat: "Kitchen", price: 46, icon: "pitcher", t: 4 },
+  { id: 9, name: "Glass carafe", sub: "Mouth-blown, 750 ml", cat: "Kitchen", price: 38, icon: "carafe", t: 1 },
+  { id: 10, name: "Brass table lamp", sub: "Linen shade, 38 cm", cat: "Lighting", price: 128, icon: "lamp", t: 3, tag: "New" },
+  { id: 11, name: "Paper pendant", sub: "Rice paper, 45 cm", cat: "Lighting", price: 89, icon: "pendant", t: 4 },
+  { id: 12, name: "Soy candle", sub: "Fig and cedar, 40 hr", cat: "Lighting", price: 32, icon: "candle", t: 2 }
+];
+var A = 'fill="var(--shape)"', B = 'fill="var(--shape2)"';
+var ICONS = {
+  mug: '<rect x="30" y="38" width="36" height="34" rx="5" ' + A + '/><path d="M66 46h6a8 8 0 0 1 0 16h-6" fill="none" stroke="var(--shape)" stroke-width="5"/><rect x="30" y="38" width="36" height="7" rx="3" ' + B + '/>',
+  bowl: '<path d="M20 46h60a30 26 0 0 1-60 0z" ' + A + '/><rect x="20" y="44" width="60" height="6" rx="3" ' + B + '/>',
+  vase: '<path d="M44 26h12v10c14 6 16 20 12 36a6 6 0 0 1-6 4H38a6 6 0 0 1-6-4c-4-16-2-30 12-36z" ' + A + '/><rect x="41" y="20" width="18" height="7" rx="3" ' + B + '/>',
+  towel: '<rect x="26" y="26" width="48" height="48" rx="2" ' + A + '/><rect x="26" y="40" width="48" height="5" ' + B + '/><rect x="26" y="50" width="48" height="2" ' + B + '/>',
+  duvet: '<rect x="16" y="32" width="68" height="38" rx="6" ' + A + '/><rect x="16" y="46" width="68" height="4" ' + B + '/><circle cx="30" cy="40" r="2.5" ' + B + '/><circle cx="50" cy="40" r="2.5" ' + B + '/><circle cx="70" cy="40" r="2.5" ' + B + '/>',
+  napkins: '<rect x="26" y="28" width="40" height="40" rx="2" ' + B + ' transform="rotate(-9 46 48)"/><rect x="32" y="30" width="40" height="40" rx="2" ' + A + '/>',
+  board: '<rect x="36" y="18" width="28" height="60" rx="14" ' + A + '/><circle cx="50" cy="30" r="4" ' + B + '/>',
+  pitcher: '<path d="M32 30h30l4 42a4 4 0 0 1-4 4H34a4 4 0 0 1-4-4z" ' + A + '/><path d="M64 40h6a8 8 0 0 1 0 18h-5" fill="none" stroke="var(--shape)" stroke-width="5"/><rect x="32" y="30" width="30" height="7" ' + B + '/>',
+  carafe: '<path d="M44 20h12v18c12 8 14 22 12 36a4 4 0 0 1-4 4H36a4 4 0 0 1-4-4c-2-14 0-28 12-36z" fill="var(--shape)" opacity=".55"/><path d="M34 62h32c1 6 1 10 0 12a4 4 0 0 1-4 4H38a4 4 0 0 1-4-4c-1-2-1-6 0-12z" ' + A + '/>',
+  lamp: '<path d="M34 54l7-28h18l7 28z" ' + A + '/><rect x="48" y="54" width="4" height="16" ' + B + '/><rect x="37" y="70" width="26" height="6" rx="3" ' + B + '/>',
+  pendant: '<path d="M50 12v24" stroke="var(--shape)" stroke-width="2"/><path d="M24 68a26 32 0 0 1 52 0z" ' + A + '/><circle cx="50" cy="70" r="4" ' + B + '/>',
+  candle: '<rect x="32" y="42" width="36" height="34" rx="4" ' + A + '/><path d="M50 22c7 7 7 14 0 16-7-2-7-9 0-16z" ' + B + '/>'
+};
+function svg(icon) { return '<svg viewBox="0 0 100 100" aria-hidden="true">' + ICONS[icon] + '</svg>'; }
+function money(n) { return "$" + n.toFixed(2).replace(/\.00$/, ""); }
+function $(id) { return document.getElementById(id); }
+
+var state = { cat: "All", q: "", sort: "feat", cart: {}, promo: "", open: false, step: "cart", done: false };
+try { var saved = JSON.parse(localStorage.getItem("oleander-cart") || "{}"); if (saved && typeof saved === "object") state.cart = saved; } catch (e) {}
+function persist() { try { localStorage.setItem("oleander-cart", JSON.stringify(state.cart)); } catch (e) {} }
+function byId(id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; }
+
+function cartLines() {
+  return Object.keys(state.cart).map(function (k) { return { p: byId(+k), n: state.cart[k] }; }).filter(function (l) { return l.p && l.n > 0; });
+}
+function totals() {
+  var sub = 0, n = 0;
+  cartLines().forEach(function (l) { sub += l.p.price * l.n; n += l.n; });
+  var disc = state.promo === "WELCOME10" ? Math.round(sub * 10) / 100 : 0;
+  var after = sub - disc;
+  var ship = n === 0 ? 0 : (after >= 75 ? 0 : 6);
+  return { sub: sub, disc: disc, after: after, ship: ship, total: after + ship, n: n };
+}
+
+function renderChips() {
+  var cats = ["All", "Ceramics", "Linen", "Kitchen", "Lighting"];
+  $("chips").innerHTML = cats.map(function (c) {
+    return '<button class="chip" data-cat="' + c + '" aria-pressed="' + (state.cat === c) + '">' + c + '</button>';
+  }).join("");
+}
+function renderGrid() {
+  var q = state.q.trim().toLowerCase();
+  var list = PRODUCTS.filter(function (p) {
+    return (state.cat === "All" || p.cat === state.cat) && (!q || (p.name + " " + p.sub + " " + p.cat).toLowerCase().indexOf(q) > -1);
+  });
+  if (state.sort === "lo") list.sort(function (a, b) { return a.price - b.price; });
+  if (state.sort === "hi") list.sort(function (a, b) { return b.price - a.price; });
+  if (state.sort === "az") list.sort(function (a, b) { return a.name.localeCompare(b.name); });
+  $("grid").innerHTML = list.length ? list.map(function (p) {
+    return '<article class="card"><div class="tile" style="background:var(--t' + p.t + ')">' + (p.tag ? '<span class="tag">' + p.tag + '</span>' : '') + svg(p.icon) + '</div>' +
+      '<div class="meta"><h3>' + p.name + '</h3><span class="price">' + money(p.price) + '</span></div>' +
+      '<div class="sub">' + p.sub + '</div><button class="add" data-add="' + p.id + '">Add to cart</button></article>';
+  }).join("") : '<div class="empty">Nothing matches "' + state.q.replace(/</g, "&lt;") + '". Try another word or clear the filter.</div>';
+}
+function renderCount() { $("count").textContent = totals().n; }
+
+function renderDrawer() {
+  var layer = $("layer");
+  if (!state.open) { layer.innerHTML = ""; return; }
+  var t = totals(), lines = cartLines(), body = "", foot = "", title = "Your cart";
+  if (state.done) {
+    title = "Order placed";
+    body = '<div class="done"><h3>Thank you</h3><p>This is a sample store, so no payment was taken and nothing will ship. Your order summary would be emailed here.</p></div>';
+    foot = '<div class="dfoot"><button class="primary" data-act="close">Keep browsing</button></div>';
+  } else if (state.step === "checkout") {
+    title = "Checkout";
+    body = '<form class="form" id="co"><label for="fn">Full name<input id="fn" required autocomplete="name"></label>' +
+      '<label for="em">Email<input id="em" type="email" required autocomplete="email"></label>' +
+      '<label for="ad">Delivery address<input id="ad" required autocomplete="street-address"></label>' +
+      '<div class="note">Demo only: do not enter real card or personal details.</div></form>';
+    foot = '<div class="dfoot"><div class="row total"><span>Total</span><span>' + money(t.total) + '</span></div>' +
+      '<button class="primary" data-act="place">Place order</button><button class="link" data-act="back">Back to cart</button></div>';
+  } else if (!lines.length) {
+    body = '<div class="done"><p>Your cart is empty.</p><button class="primary" data-act="close">Start shopping</button></div>';
+  } else {
+    var left = Math.max(0, 75 - t.after), pct = Math.min(100, t.after / 75 * 100);
+    body = '<div class="free">' + (left > 0 ? 'Add ' + money(left) + ' more for free shipping' : 'You have free shipping') + '<div class="bar"><i style="width:' + pct + '%"></i></div></div>' +
+      lines.map(function (l) {
+        return '<div class="line"><div class="mini" style="background:var(--t' + l.p.t + ')">' + svg(l.p.icon) + '</div>' +
+          '<div><h4>' + l.p.name + '</h4><div class="qty"><button data-dec="' + l.p.id + '" aria-label="Decrease">&minus;</button><span>' + l.n + '</span><button data-inc="' + l.p.id + '" aria-label="Increase">+</button></div></div>' +
+          '<div><div class="price">' + money(l.p.price * l.n) + '</div><button class="rm" data-rm="' + l.p.id + '">Remove</button></div></div>';
+      }).join("");
+    foot = '<div class="dfoot"><div class="promo"><input id="pc" placeholder="Promo code" aria-label="Promo code" value="' + state.promo + '"><button data-act="promo">Apply</button></div>' +
+      '<div class="note" id="pn">' + (state.promo === "WELCOME10" ? "WELCOME10 applied: 10% off" : "Try WELCOME10") + '</div>' +
+      '<div class="row"><span>Subtotal</span><span>' + money(t.sub) + '</span></div>' +
+      (t.disc ? '<div class="row"><span>Discount</span><span>-' + money(t.disc) + '</span></div>' : '') +
+      '<div class="row"><span>Shipping</span><span>' + (t.ship ? money(t.ship) : "Free") + '</span></div>' +
+      '<div class="row total"><span>Total</span><span>' + money(t.total) + '</span></div>' +
+      '<button class="primary" data-act="checkout">Checkout</button></div>';
+  }
+  layer.innerHTML = '<div class="scrim" data-act="close"></div><aside class="drawer" role="dialog" aria-label="Cart"><div class="dhead"><h2>' + title + '</h2><button class="x" data-act="close" aria-label="Close">&times;</button></div><div class="dbody">' + body + '</div>' + foot + '</aside>';
+}
+function toast(msg) {
+  var h = $("toastHost"); h.innerHTML = '<div class="toast" role="status">' + msg + '</div>';
+  clearTimeout(toast.t); toast.t = setTimeout(function () { h.innerHTML = ""; }, 1800);
+}
+function change(id, d) {
+  var n = (state.cart[id] || 0) + d;
+  if (n <= 0) delete state.cart[id]; else state.cart[id] = Math.min(n, 20);
+  persist(); renderCount(); renderDrawer();
+}
+
+document.addEventListener("click", function (e) {
+  var el = e.target.closest("button, .scrim");
+  if (!el) return;
+  var d = el.dataset;
+  if (d.cat) { state.cat = d.cat; renderChips(); renderGrid(); return; }
+  if (d.add) { change(+d.add, 1); toast(byId(+d.add).name + " added"); return; }
+  if (d.inc) return change(+d.inc, 1);
+  if (d.dec) return change(+d.dec, -1);
+  if (d.rm) { delete state.cart[d.rm]; persist(); renderCount(); renderDrawer(); return; }
+  if (el.id === "openCart") { state.open = true; state.step = "cart"; state.done = false; renderDrawer(); return; }
+  if (d.act === "close") { state.open = false; renderDrawer(); return; }
+  if (d.act === "checkout") { state.step = "checkout"; renderDrawer(); return; }
+  if (d.act === "back") { state.step = "cart"; renderDrawer(); return; }
+  if (d.act === "promo") {
+    var v = ($("pc").value || "").trim().toUpperCase();
+    state.promo = v === "WELCOME10" ? v : "";
+    renderDrawer();
+    if (v && !state.promo) $("pn").textContent = "That code is not valid.";
+    return;
+  }
+  if (d.act === "place") {
+    var f = $("co");
+    if (!f.reportValidity()) return;
+    state.cart = {}; state.promo = ""; state.done = true; persist(); renderCount(); renderDrawer();
+  }
+});
+$("q").addEventListener("input", function (e) { state.q = e.target.value; renderGrid(); });
+$("sort").addEventListener("change", function (e) { state.sort = e.target.value; renderGrid(); });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape" && state.open) { state.open = false; renderDrawer(); } });
+
+renderChips(); renderGrid(); renderCount();
+</script>
+
+</body></html>
